@@ -8,17 +8,23 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserRepository {
-
-    ConcurrentHashMap<String, User> users;
+    ConcurrentHashMap<User, List<Authorities>> users;
     public List<Authorities> getUserAuthorities(String user, String password) {
-        List<Authorities> authorities = new ArrayList<>();
-        if (users.containsKey(user)) {
-            return users.get(user).getAuthorities();
-        }
-        return authorities;
+        return users.entrySet().stream()
+                .filter(x->x.getKey().getName().equals(user))
+                .filter(x->x.getKey().getPassword().equals(password))
+                .findFirst().get().getValue();
     }
 
-    public void save(User user) {
-        users.putIfAbsent(user.getName(), user);
+    public void save(String user, String password) {
+        User us = users.entrySet().stream()
+                .filter(x -> x.getKey().getName().equals(user))
+                .filter(x -> x.getKey().getPassword().equals(password))
+                .findFirst().get().getKey();
+        if (us == null) {
+            List<Authorities> authorities = new ArrayList<>();
+            authorities.add(Authorities.WRITE);
+            users.put(new User(user, password), authorities);
+        }
     }
 }
