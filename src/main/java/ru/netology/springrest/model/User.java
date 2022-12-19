@@ -1,8 +1,10 @@
 package ru.netology.springrest.model;
 
 public class User {
-    private final String name;
-    private final String password;
+    private String name;
+    private String password;
+
+    public User() {}
 
     public User(String name, String password) {
         this.name = name;
