@@ -16,10 +16,11 @@ public class UserRepository {
         users = new ConcurrentHashMap<>();
     }
 
+    @SuppressWarnings("all")
     public List<Authorities> getUserAuthorities(String user, String password) {
         boolean isPresent = users.entrySet().stream()
-                    .filter(x->x.getKey().getName().equals(user))
-                    .anyMatch(x->x.getKey().getPassword().equals(password));
+                .filter(x -> x.getKey().getName().equals(user))
+                .anyMatch(x -> x.getKey().getPassword().equals(password));
 
         if (isPresent) {
             return users.entrySet().stream()
