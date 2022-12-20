@@ -1,10 +1,17 @@
 package ru.netology.springrest.model;
 
+import jakarta.validation.Valid;
+
 @SuppressWarnings("all")
 public class User {
-    private final String name;
-    private final String password;
+    private String name;
+    private String password;
 
+    public User() {
+
+    }
+
+    @Valid
     public User(String name, String password) {
         this.name = name;
         this.password = password;
@@ -16,5 +23,17 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 }

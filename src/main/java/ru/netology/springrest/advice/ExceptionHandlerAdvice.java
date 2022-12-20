@@ -16,7 +16,7 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(UnauthorizedUser.class)
-    public ResponseEntity<String> invalidCredentials(UnauthorizedUser e) {
+    public ResponseEntity<String> unauthorizedUser(UnauthorizedUser e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
